@@ -222,19 +222,19 @@ with st.sidebar:
 current_page = st.session_state["active_page"]
 
 if current_page == "🏠 Home Dashboard":
-current_date_str = datetime.now().strftime("%d %B %Y")
+    current_date_str = datetime.now().strftime("%d %B %Y")
 
-st.markdown(f"""
-    <div class="dashboard-card" style="display: flex; justify-content: space-between; align-items: center;">
-        <div>
-            <h1 style='color: #0f172a; font-weight: 700; margin: 0;'>Selamat Datang Kembali</h1>
-            <p style='color: #64748b; margin-top: 5px;'>Analisis metrik akomodasi dan kinerja regional Papua.</p>
-        </div>
-        <div style="background: #f1f5f9; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; color: #475569;">
-            📅 {current_date_str}
-        </div>
-    </div>
-""", unsafe_allow_html=True)
+        st.markdown(f"""
+            <div class="dashboard-card" style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1 style='color: #0f172a; font-weight: 700; margin: 0;'>Selamat Datang Kembali</h1>
+                    <p style='color: #64748b; margin-top: 5px;'>Analisis metrik akomodasi dan kinerja regional Papua.</p>
+                </div>
+                <div style="background: #f1f5f9; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; color: #475569;">
+                    📅 {current_date_str}
+                </div>
+            </div>
+        """, unsafe_allow_html=True)
     
     if st.session_state["role"] == 'admin':
         col1, col2, col3, col4 = st.columns(4)
