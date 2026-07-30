@@ -62,7 +62,7 @@ if not st.session_state["authenticated"]:
     st.stop()
 
 # --- Custom CSS Styling (High Contrast UI Fix) ---
-st.markdown("""
+st.markdown(
    /* --- Global Theme & Smooth Typography --- */
 body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
     background-color: #f8fafc !important;
@@ -194,7 +194,7 @@ div.stButton > button {
 div.stButton > button:hover {
     background-color: #d97706 !important;
 }
-""", unsafe_allow_html=True)
+, unsafe_allow_html=True)
 
 # --- Initialize ETL Engine & Data Sources ---
 @st.cache_resource
