@@ -1,0 +1,11 @@
+streamlit
+pandas
+numpy
+plotly
+geopandas
+pyarrow
+shapely
+google-genai
+openpyxl
+gunicorn
+Dash

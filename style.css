@@ -1,0 +1,84 @@
+/* --- Global Theme --- */
+body {
+    background-color: #f8fafc !important;
+    font-family: 'Inter', -apple-system, sans-serif !important;
+    color: #1e293b !important;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- Clean Modern Cards --- */
+.dashboard-card {
+    background-color: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
+    margin-bottom: 24px;
+    color: #1e293b !important;
+}
+
+/* --- Filter Container Grid --- */
+.filter-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    background-color: #ffffff !important;
+    padding: 20px 24px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    margin-bottom: 24px;
+}
+
+/* --- Province Callout Stat Cards --- */
+.province-card {
+    background: #ffffff !important;
+    border: 2px solid #f59e0b !important;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.province-header {
+    background: #f59e0b !important;
+    color: #ffffff !important;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    padding: 10px 16px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #f1f5f9 !important;
+}
+
+.stat-row:last-child {
+    border-bottom: none;
+}
+
+/* --- Badges --- */
+.badge-up {
+    background-color: #10b981 !important;
+    color: #ffffff !important;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.badge-down {
+    background-color: #ef4444 !important;
+    color: #ffffff !important;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 12px;
+}
