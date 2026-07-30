@@ -19,6 +19,22 @@ try:
     st.logo(logo_path, size="large")
 except Exception:
     pass
+st.markdown("""
+    <style>
+        /* Force button background and text colors to match your theme */
+        div.stButton > button {
+            background-color: #f59e0b !important;
+            color: #ffffff !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            border: none !important;
+        }
+        div.stButton > button:hover {
+            background-color: #d97706 !important;
+            color: #ffffff !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 # --- Session State Initialization ---
 if "active_page" not in st.session_state:
