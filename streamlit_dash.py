@@ -5,7 +5,6 @@ import plotly.express as px
 import geopandas as gpd
 from datetime import datetime
 from my_module import ETLEngine, generate_akomodasi_tables
-from datetime import datetime
 
 # --- Page Configuration & Browser Tab Icon ---
 st.set_page_config(
@@ -20,22 +19,6 @@ try:
     st.logo(logo_path, size="large")
 except Exception:
     pass
-st.markdown("""
-    <style>
-        /* Force button background and text colors to match your theme */
-        div.stButton > button {
-            background-color: #f59e0b !important;
-            color: #ffffff !important;
-            border-radius: 8px !important;
-            font-weight: 600 !important;
-            border: none !important;
-        }
-        div.stButton > button:hover {
-            background-color: #d97706 !important;
-            color: #ffffff !important;
-        }
-    </style>
-""", unsafe_allow_html=True)
 
 # --- Session State Initialization ---
 if "active_page" not in st.session_state:
@@ -78,27 +61,39 @@ if not st.session_state["authenticated"]:
         st.markdown('</div>', unsafe_allow_html=True)
     st.stop()
 
-# --- Custom CSS Styling ---
+# --- Custom CSS Styling (High Contrast UI Fix) ---
 st.markdown("""
     <style>
-        body, [data-testid="stAppViewContainer"] {
+        /* Force app base background and text color */
+        body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
             background-color: #f8fafc !important;
-            font-family: 'Inter', -apple-system, sans-serif !important;
             color: #1e293b !important;
+            font-family: 'Inter', -apple-system, sans-serif !important;
         }
+        
+        /* Sidebar styling */
         [data-testid="stSidebar"] {
             background-color: #ffffff !important;
             border-right: 1px solid #e2e8f0;
             padding: 20px 10px;
         }
+        
+        /* Dashboard Cards - Solid white background with explicit dark text */
         .dashboard-card {
             background-color: #ffffff !important;
-            border: 1px solid #e2e8f0 !important;
+            border: 1px solid #cbd5e1 !important;
             border-radius: 16px;
             padding: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             margin-bottom: 24px;
+            color: #1e293b !important;
         }
+        
+        .dashboard-card h1, .dashboard-card h2, .dashboard-card h3, .dashboard-card h4, .dashboard-card p, .dashboard-card span {
+            color: #1e293b !important;
+        }
+
+        /* Filter containers */
         .filter-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -106,15 +101,18 @@ st.markdown("""
             background-color: #ffffff !important;
             padding: 20px 24px;
             border-radius: 16px;
-            border: 1px solid #e2e8f0 !important;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+            border: 1px solid #cbd5e1 !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
             margin-bottom: 24px;
+            color: #1e293b !important;
         }
+
+        /* Province Stat Cards */
         .province-card {
             background: #ffffff !important;
             border: 2px solid #f59e0b !important;
             border-radius: 14px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             overflow: hidden;
             margin-bottom: 16px;
         }
@@ -122,7 +120,7 @@ st.markdown("""
             background: #f59e0b !important;
             color: #ffffff !important;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 15px !important;
             letter-spacing: 0.5px;
             padding: 10px 16px;
             text-align: center;
@@ -134,25 +132,26 @@ st.markdown("""
             align-items: center;
             padding: 12px 16px;
             border-bottom: 1px solid #f1f5f9 !important;
+            color: #1e293b !important;
         }
-        .stat-row:last-child {
-            border-bottom: none;
+
+        /* Force Streamlit Dataframes / Tables to be light and readable */
+        [data-testid="stDataFrame"], dataframe, table {
+            background-color: #ffffff !important;
+            color: #1e293b !important;
         }
-        .badge-up {
-            background-color: #10b981 !important;
+        
+        /* Standardize button colors for clarity */
+        div.stButton > button {
+            background-color: #f59e0b !important;
             color: #ffffff !important;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 12px;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            border: none !important;
         }
-        .badge-down {
-            background-color: #ef4444 !important;
+        div.stButton > button:hover {
+            background-color: #d97706 !important;
             color: #ffffff !important;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 15px;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -209,7 +208,7 @@ with st.sidebar:
     
     st.divider()
     st.markdown(f"""
-        <div style="background: #f1f5f9; padding: 12px; border-radius: 10px; font-size: 12px;">
+        <div style="background: #f1f5f9; padding: 12px; border-radius: 10px; font-size: 12px; color: #1e293b;">
             <strong>USER:</strong> {st.session_state['name']}<br>
             <strong>ROLE:</strong> {st.session_state['role'].upper()}<br>
             🟢 AI Engine Online
@@ -421,8 +420,8 @@ elif current_page == "📈 Trends Visualizations":
             FROM {etl_engine.general_table_name}
             WHERE kd_prov = ? AND year = ?
             GROUP BY jenis_akomodasi, month
-            ORDER BY month"""
-
+            ORDER BY month
+        """
         with etl_engine._get_connection() as conn:
             df_agg = pd.read_sql_query(trend_query, conn, params=(viz_prov, viz_year))
 
