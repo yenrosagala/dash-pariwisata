@@ -9,12 +9,12 @@ from my_module import ETLEngine, generate_akomodasi_tables
 # --- Page Configuration & Browser Tab Icon ---
 st.set_page_config(
     page_title="Tourism Dashboard",
-    page_icon="D:/BPS/BPS 2026/Distribusi/Monit Transportasi/logo.png",
+    page_icon="logo.png",
     layout="wide"
 )
 
 # --- Add BPS Logo to Sidebar and Header ---
-logo_path = r"D:\BPS\BPS 2026\Distribusi\Monit Transportasi\logo.png"
+logo_path = "logo.png"
 try:
     st.logo(logo_path, size="large")
 except Exception:
@@ -405,8 +405,8 @@ elif current_page == "📈 Trends Visualizations":
             FROM {etl_engine.general_table_name}
             WHERE kd_prov = ? AND year = ?
             GROUP BY jenis_akomodasi, month
-            ORDER BY month
-        """
+            ORDER BY month"""
+
         with etl_engine._get_connection() as conn:
             df_agg = pd.read_sql_query(trend_query, conn, params=(viz_prov, viz_year))
 
