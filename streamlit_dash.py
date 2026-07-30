@@ -61,140 +61,143 @@ if not st.session_state["authenticated"]:
         st.markdown('</div>', unsafe_allow_html=True)
     st.stop()
 
-# --- Custom CSS Styling (High Contrast UI Fix) ---
-st.markdown(
-   /* --- Global Theme & Smooth Typography --- */
-body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
-    background-color: #f8fafc !important;
-    color: #0f172a !important;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-    -webkit-font-smoothing: antialiased;
-}
+# --- Upgraded Modern CSS Styling (Integrated Style Fixes) ---
+st.markdown("""
+    <style>
+        /* --- Global Theme & Smooth Typography --- */
+        body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
+            background-color: #f8fafc !important;
+            color: #0f172a !important;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* --- Modern Sidebar Styling --- */
+        [data-testid="stSidebar"] {
+            background-color: #ffffff !important;
+            border-right: 1px solid #e2e8f0;
+            padding: 24px 12px;
+        }
+        
+        /* --- Clean Modern Cards with Depth --- */
+        .dashboard-card {
+            background-color: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
+            margin-bottom: 24px;
+            transition: all 0.2s ease-in-out;
+            color: #0f172a !important;
+        }
 
-/* --- Modern Sidebar Styling --- */
-[data-testid="stSidebar"] {
-    background-color: #ffffff !important;
-    border-right: 1px solid #e2e8f0;
-    padding: 24px 12px;
-}
+        .dashboard-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+        }
+        
+        .dashboard-card h1, .dashboard-card h2, .dashboard-card h3, .dashboard-card h4, .dashboard-card p, .dashboard-card span {
+            color: #0f172a !important;
+        }
 
-/* --- Clean Modern Cards with Depth --- */
-.dashboard-card {
-    background-color: #ffffff !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 16px;
-    padding: 28px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
-    margin-bottom: 24px;
-    transition: all 0.2s ease-in-out;
-}
+        /* --- Filter Container Grid Layout --- */
+        .filter-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            background-color: #ffffff !important;
+            padding: 20px 24px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0 !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.01);
+            margin-bottom: 24px;
+            align-items: center;
+            color: #0f172a !important;
+        }
 
-.dashboard-card:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
-}
+        /* --- Province Stat Cards --- */
+        .province-card {
+            background: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            border-top: 4px solid #f59e0b !important;
+            border-radius: 14px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+        .province-header {
+            background: #fffbeb !important;
+            color: #92400e !important;
+            font-weight: 700;
+            font-size: 13px !important;
+            letter-spacing: 0.5px;
+            padding: 10px 16px;
+            text-align: center;
+            text-transform: uppercase;
+            border-bottom: 1px solid #fef3c7;
+        }
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            border-bottom: 1px solid #f1f5f9 !important;
+            color: #1e293b !important;
+        }
+        .stat-row:last-child {
+            border-bottom: none;
+        }
 
-.dashboard-card h1, .dashboard-card h2, .dashboard-card h3, .dashboard-card h4, .dashboard-card p, .dashboard-card span {
-    color: #0f172a !important;
-}
+        /* --- Refined Status Badges --- */
+        .badge-up {
+            background-color: #d1fae5 !important;
+            color: #065f46 !important;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 11px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
 
-/* --- Filter Container Grid Layout --- */
-.filter-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px;
-    background-color: #ffffff !important;
-    padding: 20px 24px;
-    border-radius: 16px;
-    border: 1px solid #e2e8f0 !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.01);
-    margin-bottom: 24px;
-    align-items: center;
-}
+        .badge-down {
+            background-color: #fee2e2 !important;
+            color: #991b1b !important;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 11px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
 
-/* --- Province Callout Stat Cards --- */
-.province-card {
-    background: #ffffff !important;
-    border: 1px solid #e2e8f0 !important;
-    border-top: 4px solid #f59e0b !important;
-    border-radius: 14px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
-    overflow: hidden;
-    margin-bottom: 16px;
-}
-
-.province-header {
-    background: #fffbeb !important;
-    color: #92400e !important;
-    font-weight: 700;
-    font-size: 13px !important;
-    letter-spacing: 0.5px;
-    padding: 10px 16px;
-    text-align: center;
-    text-transform: uppercase;
-    border-bottom: 1px solid #fef3c7;
-}
-
-.stat-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 16px;
-    border-bottom: 1px solid #f1f5f9 !important;
-    color: #1e293b !important;
-}
-
-.stat-row:last-child {
-    border-bottom: none;
-}
-
-/* --- Refined Status Badges --- */
-.badge-up {
-    background-color: #d1fae5 !important;
-    color: #065f46 !important;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 11px;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.badge-down {
-    background-color: #fee2e2 !important;
-    color: #991b1b !important;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 11px;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-}
-
-/* --- Streamlit Element Polish --- */
-[data-testid="stDataFrame"] {
-    background-color: #ffffff !important;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-    padding: 8px;
-}
-
-div.stButton > button {
-    background-color: #f59e0b !important;
-    color: #ffffff !important;
-    border-radius: 10px !important;
-    font-weight: 600 !important;
-    padding: 0.5rem 1rem !important;
-    border: none !important;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    transition: background-color 0.15s ease;
-}
-
-div.stButton > button:hover {
-    background-color: #d97706 !important;
-}
-, unsafe_allow_html=True)
+        /* --- Streamlit Element Polish --- */
+        [data-testid="stDataFrame"], dataframe, table {
+            background-color: #ffffff !important;
+            color: #1e293b !important;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            padding: 8px;
+        }
+        
+        /* Standardize button colors for clarity */
+        div.stButton > button {
+            background-color: #f59e0b !important;
+            color: #ffffff !important;
+            border-radius: 10px !important;
+            font-weight: 600 !important;
+            padding: 0.5rem 1rem !important;
+            border: none !important;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            transition: background-color 0.15s ease;
+        }
+        div.stButton > button:hover {
+            background-color: #d97706 !important;
+            color: #ffffff !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 # --- Initialize ETL Engine & Data Sources ---
 @st.cache_resource
