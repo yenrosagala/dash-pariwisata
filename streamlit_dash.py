@@ -316,6 +316,13 @@ st.markdown("""
             background-color: #d97706 !important;
             color: #ffffff !important;
         }
+
+        fig_line.update_layout(
+    margin=dict(t=40, b=20, l=20, r=20), 
+    height=380,
+    paper_bgcolor="rgba(255,255,255,1)",
+    plot_bgcolor="rgba(255,255,255,1)"
+    )
     </style>
 """, unsafe_allow_html=True)
 
