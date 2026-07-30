@@ -61,25 +61,25 @@ if not st.session_state["authenticated"]:
         st.markdown('</div>', unsafe_allow_html=True)
     st.stop()
 
-# --- Upgraded Modern CSS Styling (Integrated Style Fixes) ---
+# --- Upgraded High-Contrast CSS Fixes (Resolves Black-on-Black Element Issue) ---
 st.markdown("""
     <style>
-        /* --- Global Theme & Smooth Typography --- */
+        /* --- Global App Theme --- */
         body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
             background-color: #f8fafc !important;
             color: #0f172a !important;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
             -webkit-font-smoothing: antialiased;
         }
-        
-        /* --- Modern Sidebar Styling --- */
+
+        /* --- Sidebar --- */
         [data-testid="stSidebar"] {
             background-color: #ffffff !important;
-            border-right: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0 !important;
             padding: 24px 12px;
         }
-        
-        /* --- Clean Modern Cards with Depth --- */
+
+        /* --- Dashboard Cards --- */
         .dashboard-card {
             background-color: #ffffff !important;
             border: 1px solid #e2e8f0 !important;
@@ -87,19 +87,14 @@ st.markdown("""
             padding: 28px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
             margin-bottom: 24px;
-            transition: all 0.2s ease-in-out;
             color: #0f172a !important;
         }
 
-        .dashboard-card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
-        }
-        
         .dashboard-card h1, .dashboard-card h2, .dashboard-card h3, .dashboard-card h4, .dashboard-card p, .dashboard-card span {
             color: #0f172a !important;
         }
 
-        /* --- Filter Container Grid Layout --- */
+        /* --- Filter Container --- */
         .filter-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -110,7 +105,141 @@ st.markdown("""
             border: 1px solid #e2e8f0 !important;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.01);
             margin-bottom: 24px;
-            align-items: center;
+            color: #0f172a !important;
+        }
+
+        /* ========================================================= */
+        /* FIX FOR STREAMLIT BASEWEB WIDGETS (SELECTBOX, INPUTS, ETC) */
+        /* ========================================================= */
+
+        /* Form Labels */
+        label, [data-testid="stWidgetLabel"] p, [data-testid="stWidgetLabel"] span {
+            color: #334155 !important;
+            font-weight: 600 !important;
+            font-size: 14px !important;
+        }
+
+        /* BaseWeb Selectbox & Input Container Wrappers */
+        div[data-baseweb="select"] > div,
+        div[data-baseweb="input"] > div,
+        div[data-baseweb="base-input"] {
+            background-color: #ffffff !important;
+            border: 1px solid #cbd5e1 !important;
+            border-radius: 10px !important;
+            color: #0f172a !important;
+        }
+
+        div[data-baseweb="select"] span,
+        div[data-baseweb="select"] div,
+        div[data-baseweb="input"] input,
+        [data-baseweb="select"] * {
+            color: #0f172a !important;
+            background-color: transparent !important;
+        }
+
+        /* Selectbox Popover & Dropdown Options Menu */
+        div[data-baseweb="popover"],
+        div[data-baseweb="menu"],
+        ul[role="listbox"] {
+            background-color: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+            border-radius: 10px !important;
+        }
+
+        li[role="option"] {
+            color: #0f172a !important;
+            background-color: #ffffff !important;
+        }
+
+        li[role="option"]:hover, li[aria-selected="true"] {
+            background-color: #f1f5f9 !important;
+            color: #f59e0b !important;
+        }
+
+        /* Number Input Buttons (- and + controls) */
+        button[data-testid="stNumberInputStepDown"],
+        button[data-testid="stNumberInputStepUp"] {
+            background-color: #f8fafc !important;
+            color: #0f172a !important;
+            border: 1px solid #cbd5e1 !important;
+            border-radius: 6px !important;
+        }
+
+        button[data-testid="stNumberInputStepDown"]:hover,
+        button[data-testid="stNumberInputStepUp"]:hover {
+            background-color: #e2e8f0 !important;
+        }
+
+        /* ========================================================= */
+        /* FIX FOR FILE UPLOADER                                     */
+        /* ========================================================= */
+        [data-testid="stFileUploader"] {
+            background-color: #ffffff !important;
+            border: 2px dashed #cbd5e1 !important;
+            border-radius: 12px !important;
+            padding: 16px !important;
+        }
+
+        [data-testid="stFileUploaderDropzone"] {
+            background-color: #f8fafc !important;
+            border-radius: 10px !important;
+        }
+
+        [data-testid="stFileUploader"] * {
+            color: #0f172a !important;
+        }
+
+        [data-testid="stFileUploader"] button {
+            background-color: #f1f5f9 !important;
+            color: #0f172a !important;
+            border: 1px solid #cbd5e1 !important;
+        }
+
+        /* ========================================================= */
+        /* FIX FOR TABS & TABPANELS                                 */
+        /* ========================================================= */
+        [data-testid="stTabs"] {
+            background-color: transparent !important;
+        }
+
+        button[role="tab"] {
+            color: #64748b !important;
+            font-weight: 600 !important;
+            border-radius: 8px 8px 0 0 !important;
+            padding: 8px 16px !important;
+        }
+
+        button[role="tab"][aria-selected="true"] {
+            color: #f59e0b !important;
+            border-bottom: 3px solid #f59e0b !important;
+            background-color: #ffffff !important;
+        }
+
+        div[role="tabpanel"] {
+            background-color: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 0 12px 12px 12px !important;
+            padding: 24px !important;
+            color: #0f172a !important;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02) !important;
+        }
+
+        div[role="tabpanel"] * {
+            color: #0f172a !important;
+        }
+
+        /* ========================================================= */
+        /* FIX FOR DATAFRAMES & TABLES                               */
+        /* ========================================================= */
+        [data-testid="stDataFrame"], [data-testid="stTable"], .stDataFrame {
+            background-color: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 12px !important;
+            padding: 8px !important;
+        }
+
+        [data-testid="stDataFrame"] * {
             color: #0f172a !important;
         }
 
@@ -147,7 +276,7 @@ st.markdown("""
             border-bottom: none;
         }
 
-        /* --- Refined Status Badges --- */
+        /* --- Status Badges --- */
         .badge-up {
             background-color: #d1fae5 !important;
             color: #065f46 !important;
@@ -172,16 +301,7 @@ st.markdown("""
             gap: 4px;
         }
 
-        /* --- Streamlit Element Polish --- */
-        [data-testid="stDataFrame"], dataframe, table {
-            background-color: #ffffff !important;
-            color: #1e293b !important;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            padding: 8px;
-        }
-        
-        /* Standardize button colors for clarity */
+        /* --- Buttons --- */
         div.stButton > button {
             background-color: #f59e0b !important;
             color: #ffffff !important;
@@ -429,8 +549,20 @@ elif current_page == "🗺️ Infographic Stat Map":
                 fig_scatter.update_traces(marker=dict(size=12, color='#f59e0b', symbol='circle', line=dict(width=2, color='white')))
                 for trace in fig_scatter.data:
                     fig_map.add_trace(trace)
-                fig_map.update_geos(fitbounds="locations", visible=False)
-                fig_map.update_layout(margin=dict(l=0, r=0, t=0, b=0), height=460, showlegend=False)
+                
+                # Fixed Plotly Layout to prevent black map canvas
+                fig_map.update_geos(
+                    fitbounds="locations", 
+                    visible=False,
+                    bgcolor="rgba(255,255,255,1)"
+                )
+                fig_map.update_layout(
+                    margin=dict(l=0, r=0, t=0, b=0), 
+                    height=460, 
+                    showlegend=False,
+                    paper_bgcolor="rgba(255,255,255,1)",
+                    plot_bgcolor="rgba(255,255,255,1)"
+                )
 
                 st.markdown('<div class="dashboard-card" style="padding: 10px;">', unsafe_allow_html=True)
                 st.plotly_chart(fig_map, use_container_width=True)
@@ -491,7 +623,12 @@ elif current_page == "📈 Trends Visualizations":
                     title=f'<b>Annual Trend</b> — {jenis} in {viz_prov} ({viz_year})',
                     template='plotly_white', color_discrete_map={'TPK (Occupancy Rate)': '#f59e0b', 'RLMTGAB (Length of Stay)': '#0d9488'}
                 )
-                fig_line.update_layout(margin=dict(t=40, b=20, l=20, r=20), height=380)
+                fig_line.update_layout(
+                    margin=dict(t=40, b=20, l=20, r=20), 
+                    height=380,
+                    paper_bgcolor="rgba(255,255,255,1)",
+                    plot_bgcolor="rgba(255,255,255,1)"
+                )
                 
                 st.markdown('<div class="dashboard-card">', unsafe_allow_html=True)
                 st.plotly_chart(fig_line, use_container_width=True)
@@ -540,7 +677,9 @@ elif current_page == "📈 Trends Visualizations":
                     yaxis_title="Indicator Value",
                     legend_title="Reporting Period",
                     margin=dict(t=40, b=20, l=20, r=20),
-                    height=380
+                    height=380,
+                    paper_bgcolor="rgba(255,255,255,1)",
+                    plot_bgcolor="rgba(255,255,255,1)"
                 )
                 
                 st.markdown('<div class="dashboard-card">', unsafe_allow_html=True)
