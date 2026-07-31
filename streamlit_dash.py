@@ -11,7 +11,7 @@ from my_module import ETLEngine, generate_akomodasi_tables
 # ============================================================
 st.set_page_config(
     page_title="Pariwisata Papua — Akomodasi Dashboard",
-    page_icon="🪶",
+    page_icon="logo.png",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
@@ -19,16 +19,10 @@ st.set_page_config(
 # ============================================================
 # THEME TOKENS — kept in sync with style.css
 # ============================================================
-GOLD, TEAL, CORAL, MOSS = "#D9A441", "#4FB0A5", "#E8674A", "#8FB08B"
-INK, INK_DIM, SURFACE, LINE = "#F2EFE4", "#B7C4BF", "#163632", "rgba(242,239,228,0.10)"
+PRIMARY, PRIMARY_DIM, POSITIVE, NEGATIVE = "#2C4A7C", "#7C93B3", "#059669", "#DC2626"
+INK, INK_DIM, SURFACE, LINE = "#1F2937", "#6B7280", "#FFFFFF", "#E5E7EB"
 
 TARGET_PROVINCES = ["Papua", "Papua Tengah", "Papua Pegunungan", "Papua Selatan"]
-PROVINCE_ACCENT = {
-    "Papua": GOLD,
-    "Papua Tengah": TEAL,
-    "Papua Pegunungan": CORAL,
-    "Papua Selatan": MOSS,
-}
 INDICATOR_META = {
     "tpk": {"label": "TPK — Tingkat Penghunian Kamar", "unit": "%"},
     "rlmtgab": {"label": "RLMTGAB — Rata-rata Lama Menginap", "unit": "malam"},
@@ -49,7 +43,7 @@ def plotly_theme(fig, height=440):
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
         font=dict(family="Inter, sans-serif", color=INK, size=13),
-        title_font=dict(family="Fraunces, serif", size=18, color=INK),
+        title_font=dict(family="Inter, sans-serif", size=17, color=INK, weight=700),
         legend=dict(bgcolor="rgba(0,0,0,0)"),
         height=height,
         margin=dict(l=10, r=10, t=50, b=10),
@@ -116,13 +110,13 @@ if not st.session_state["authenticated"]:
         st.markdown(
             """
             <div class="brand-block" style="justify-content:center; margin-bottom:14px;">
-                <div class="brand-mark">🪶</div>
+                <div class="brand-mark">📊</div>
             </div>
-            <h2 style='text-align:center; font-family:Fraunces,serif; color:#F2EFE4; margin:0;'>
+            <h2 style='text-align:center; color:#1F2937; margin:0;'>
                 Pariwisata Papua
             </h2>
-            <p style='text-align:center; color:#B7C4BF; font-size:13px; margin:4px 0 18px 0;'>
-                Sign in to the accommodation &amp; occupancy statistics ledger
+            <p style='text-align:center; color:#6B7280; font-size:13px; margin:4px 0 18px 0;'>
+                Sign in to the accommodation &amp; occupancy dashboard
             </p>
             """,
             unsafe_allow_html=True,
@@ -172,10 +166,10 @@ with st.sidebar:
     st.markdown(
         """
         <div class="brand-block">
-            <div class="brand-mark">🪶</div>
+            <div class="brand-mark">📊</div>
             <div>
-                <p class="eyebrow">Field Ledger</p>
-                <div class="page-title" style="font-size:19px;">Pariwisata Papua</div>
+                <p class="eyebrow">Dashboard</p>
+                <div class="page-title" style="font-size:18px;">Pariwisata Papua</div>
             </div>
         </div>
         """,
@@ -261,7 +255,6 @@ def render_province_ledger(df_cur, df_prev, df_last, indicator_key):
 
     tiles_html = ""
     for prov in TARGET_PROVINCES:
-        accent = PROVINCE_ACCENT.get(prov, GOLD)
         cur_val = cur_by_prov.get(prov, np.nan)
         prev_val = prev_by_prov.get(prov, np.nan)
         last_val = last_by_prov.get(prov, np.nan)
@@ -272,7 +265,7 @@ def render_province_ledger(df_cur, df_prev, df_last, indicator_key):
         number_display = f"{cur_val:.1f}" if pd.notna(cur_val) else "—"
 
         tiles_html += f"""
-        <div class="province-tile" style="--tile-accent:{accent};">
+        <div class="province-tile">
             <div class="tile-eyebrow">Province</div>
             <div class="tile-province">{prov}</div>
             <div><span class="tile-number">{number_display}</span><span class="tile-unit">{unit}</span></div>
@@ -352,14 +345,14 @@ with tabs[0]:
                 geojson=merged_gdf.geometry,
                 locations=merged_gdf.index,
                 color="val",
-                color_continuous_scale=[[0, "#163632"], [0.5, TEAL], [1, GOLD]],
+                color_continuous_scale="Blues",
                 hover_name="PROVINSI",
                 hover_data={"val": ":.2f"},
                 title=f"Papua Regional Performance — {period_label}",
             )
             fig_scatter = px.scatter_geo(merged_gdf, lat="lat", lon="lon", text="PROVINSI")
             fig_scatter.update_traces(
-                marker=dict(size=12, color=CORAL, symbol="circle", line=dict(width=2, color=INK))
+                marker=dict(size=11, color=PRIMARY, symbol="circle", line=dict(width=2, color="#FFFFFF"))
             )
             for trace in fig_scatter.data:
                 fig_map.add_trace(trace)
@@ -431,8 +424,8 @@ with tabs[1]:
                     markers=True,
                     template=None,
                     color_discrete_map={
-                        "TPK (Occupancy Rate)": GOLD,
-                        "RLMTGAB (Length of Stay)": TEAL,
+                        "TPK (Occupancy Rate)": PRIMARY,
+                        "RLMTGAB (Length of Stay)": "#9CA3AF",
                     },
                 )
                 fig.update_traces(line=dict(width=3), marker=dict(size=8))
@@ -503,7 +496,7 @@ if st.session_state["role"] == "admin" and len(tabs) > 3:
 # FOOTER
 # ============================================================
 st.markdown(
-    '<p class="app-footer">Pariwisata Papua · Akomodasi Dashboard — data sourced from BPS Provinsi Papua '
+    '<p class="app-footer">Pariwisata Papua · Akomodasi Dashboard — data sourced from BPS provincial '
     "hotel occupancy matrices</p>",
     unsafe_allow_html=True,
 )
