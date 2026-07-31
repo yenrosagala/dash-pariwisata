@@ -1,83 +1,213 @@
-/* --- Global Theme & Smooth Typography --- */
-body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
-    background-color: #f8fafc !important;
-    color: #0f172a !important;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-    -webkit-font-smoothing: antialiased;
+/* ============================================================
+   PARIWISATA PAPUA — "FIELD LEDGER" DESIGN SYSTEM
+   Display: Fraunces (warm, organic serif for headings)
+   Body:    Inter (clean, legible sans for UI copy)
+   Data:    IBM Plex Mono (precise, report-like figures)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+    --ink:        #F2EFE4;
+    --ink-dim:    #B7C4BF;
+    --canopy:     #0E2523;
+    --surface:    #163632;
+    --surface-2:  #1C433D;
+    --line:       rgba(242,239,228,0.10);
+    --gold:       #D9A441;
+    --teal:       #4FB0A5;
+    --coral:      #E8674A;
+    --moss:       #8FB08B;
 }
 
-/* --- Clean Modern Cards --- */
-.dashboard-card {
-    background-color: #ffffff !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
-    margin-bottom: 24px;
-    color: #1e293b !important;
+/* ---------- base ---------- */
+html, body, [class*="css"]{
+    font-family: 'Inter', sans-serif;
+}
+.stApp{
+    background:
+        radial-gradient(ellipse 900px 500px at 12% -10%, rgba(217,164,65,0.08), transparent 60%),
+        radial-gradient(ellipse 900px 600px at 100% 0%, rgba(79,176,165,0.10), transparent 55%),
+        var(--canopy);
+    color: var(--ink);
+}
+h1, h2, h3, .display-font{
+    font-family: 'Fraunces', serif;
+    letter-spacing: -0.01em;
+}
+code, .mono, .stat-number, .kicker{
+    font-family: 'IBM Plex Mono', monospace;
 }
 
-/* --- Filter Container Grid --- */
-.filter-container {
+/* ---------- brand / header ---------- */
+.brand-block{
+    display:flex; align-items:center; gap:14px;
+}
+.brand-mark{
+    width:46px; height:46px; border-radius:12px;
+    background: linear-gradient(155deg, var(--gold), var(--coral));
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; flex-shrink:0;
+    box-shadow: 0 6px 16px rgba(217,164,65,0.25);
+}
+.eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    text-transform:uppercase; letter-spacing:0.14em;
+    font-size:11px; color: var(--gold); margin:0 0 4px 0;
+}
+.page-title{
+    font-family:'Fraunces', serif; font-size:28px; font-weight:700;
+    color: var(--ink); margin:0; line-height:1.15;
+}
+.page-subtitle{
+    color: var(--ink-dim); margin:2px 0 0 0; font-size:14px;
+}
+
+/* ---------- dashboard cards ---------- */
+.dashboard-card{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 26px;
+    box-shadow: 0 10px 30px -18px rgba(0,0,0,0.6);
+    margin-bottom: 22px;
+}
+.card-header{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid var(--line);
+}
+.card-header h3{ margin:0; font-size:17px; color:var(--ink); }
+.card-header span{ font-size:12px; color:var(--ink-dim); font-family:'IBM Plex Mono',monospace; }
+
+/* ---------- filter row ---------- */
+.filter-container{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    background-color: #ffffff !important;
-    padding: 20px 24px;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0 !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    margin-bottom: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 18px;
+    background: var(--surface);
+    padding: 18px 22px;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    margin-bottom: 22px;
+}
+.filter-container label p{
+    font-family:'IBM Plex Mono', monospace !important;
+    text-transform:uppercase; letter-spacing:0.08em; font-size:11px !important;
+    color: var(--gold) !important;
 }
 
-/* --- Province Callout Stat Cards --- */
-.province-card {
-    background: #ffffff !important;
-    border: 2px solid #f59e0b !important;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
+/* ---------- PROVINCE STAT LEDGER (infographic callouts) ---------- */
+.ledger-row{
+    display:flex; gap:16px; flex-wrap:wrap; margin-bottom:22px;
+}
+.province-tile{
+    flex: 1 1 230px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px 6px 16px 16px;
+    padding: 18px 20px 20px 20px;
+    position: relative;
     overflow: hidden;
-    margin-bottom: 16px;
+    transition: transform .15s ease, border-color .15s ease;
+}
+.province-tile::before{
+    content:"";
+    position:absolute; top:0; left:0; right:0; height:5px;
+    background: var(--tile-accent, var(--gold));
+}
+.province-tile:hover{ transform: translateY(-2px); border-color: var(--tile-accent, var(--gold)); }
+.tile-eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px; text-transform:uppercase; letter-spacing:0.12em;
+    color: var(--tile-accent, var(--gold)); margin-bottom:2px;
+}
+.tile-province{
+    font-family:'Fraunces', serif; font-weight:700; font-size:18px;
+    color: var(--ink); margin-bottom:12px;
+}
+.tile-number{
+    font-family:'IBM Plex Mono', monospace; font-weight:600;
+    font-size:34px; line-height:1; color: var(--ink);
+}
+.tile-unit{
+    font-size:13px; color: var(--ink-dim); margin-left:4px;
+}
+.tile-deltas{
+    display:flex; gap:8px; margin-top:14px; flex-wrap:wrap;
+}
+.delta-label{
+    font-size:10px; color:var(--ink-dim); text-transform:uppercase;
+    letter-spacing:0.06em; margin-right:4px; align-self:center;
 }
 
-.province-header {
-    background: #f59e0b !important;
-    color: #ffffff !important;
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-    padding: 10px 16px;
-    text-align: center;
-    text-transform: uppercase;
+/* ---------- badges ---------- */
+.badge-up{
+    background-color: rgba(79,176,165,0.16);
+    color: #7FD9CB;
+    border: 1px solid rgba(79,176,165,0.4);
+    padding: 3px 9px; border-radius: 20px;
+    font-weight:600; font-size:12px; font-family:'IBM Plex Mono',monospace;
+}
+.badge-down{
+    background-color: rgba(232,103,74,0.16);
+    color: #F19A82;
+    border: 1px solid rgba(232,103,74,0.4);
+    padding: 3px 9px; border-radius: 20px;
+    font-weight:600; font-size:12px; font-family:'IBM Plex Mono',monospace;
+}
+.badge-neutral{
+    background-color: rgba(242,239,228,0.08);
+    color: var(--ink-dim);
+    border: 1px solid var(--line);
+    padding: 3px 9px; border-radius: 20px;
+    font-weight:600; font-size:12px; font-family:'IBM Plex Mono',monospace;
 }
 
-.stat-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    border-bottom: 1px solid #f1f5f9 !important;
+/* ---------- login ---------- */
+.login-wrap{ margin-top: 8vh; }
+.login-card{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 36px 34px 28px 34px;
+    box-shadow: 0 24px 60px -24px rgba(0,0,0,0.7);
 }
 
-.stat-row:last-child {
-    border-bottom: none;
+/* ---------- streamlit widget overrides ---------- */
+.stTabs [data-baseweb="tab-list"]{
+    gap: 6px; border-bottom: 1px solid var(--line);
 }
-
-/* --- Badges --- */
-.badge-up {
-    background-color: #10b981 !important;
-    color: #ffffff !important;
-    padding: 3px 8px;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 12px;
+.stTabs [data-baseweb="tab"]{
+    background-color: transparent !important;
+    color: var(--ink-dim) !important;
+    font-weight: 600; font-size: 14px;
+    padding: 10px 18px !important;
+    border-radius: 10px 10px 0 0 !important;
 }
+.stTabs [aria-selected="true"]{
+    background-color: var(--surface) !important;
+    color: var(--gold) !important;
+    border: 1px solid var(--line) !important;
+    border-bottom: 1px solid var(--surface) !important;
+}
+.stButton>button{
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    border: 1px solid var(--line) !important;
+}
+.stButton>button[kind="primary"]{
+    background: linear-gradient(135deg, var(--gold), #C6893A) !important;
+    color: #1A1206 !important;
+    border: none !important;
+}
+[data-testid="stMetricValue"]{
+    font-family:'IBM Plex Mono', monospace;
+    color: var(--gold);
+}
+hr{ border-color: var(--line) !important; }
 
-.badge-down {
-    background-color: #ef4444 !important;
-    color: #ffffff !important;
-    padding: 3px 8px;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 12px;
+/* ---------- footer ---------- */
+.app-footer{
+    text-align:center; color: var(--ink-dim); font-size:12px;
+    padding: 18px 0 6px 0; letter-spacing:0.02em;
 }
